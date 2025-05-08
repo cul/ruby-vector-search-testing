@@ -36,3 +36,9 @@ jobs:
         run: bundle exec rubocop
       - name: Run rspec task
         run: bundle exec rspec
+      - name: Start docker (in background)
+        run: docker compose up --detach
+      - name: Run main script
+        run: ruby ./main.rb
+      - name: Stop docker
+        run: docker compose down
