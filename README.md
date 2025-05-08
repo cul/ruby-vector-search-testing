@@ -1,37 +1,20 @@
-# Example Ruby Script Development Template
+# transformers-ruby testing
 
-This is a quick setup template for ruby scripts.  It includes:
+## Requirements for running this script
 
-- A main.js file, which is an example entrypoint file for a ruby script.  If you want to, you can rename this to something more relevant to the script you're writing.
-- A .ruby-version file to specify what version of Ruby you're using.
-- A Gemfile for managing dependencies.
-- Zeitwerk for auto-loading classes and modules in the `lib` directory.
-- RSpec for testing.
-- Automatic generation of a code coverage report when RSpec runs (via simplecov gem).
-- Some example classes and tests (which you can delete in your local copy).
+- Docker
+- Ruby 3.3 (probably works with other versions too, but only tested with 3.3)
+- libtorch (see "Getting Started" section for more info about this)
 
-This project is meant to be downloaded as a zip file rather than cloned, since you'll most likely be using it as the basis for a new project (as opposed to wanting to push commits to the template code repository).
+## Getting Started
 
-# Getting started
+1. First, make sure that you're able to install the 0.20.0 version of the torch-rb gem.  See this repository for installation instructions:
+https://github.com/ankane/torch.rb#installation
 
-- Download this repository:
-  - Option 1: Download as a zip file.
-  - Option 2: Clone the repository and then delete the `.git` directory inside your closed copy so that you can initialize a new `.git` repository (with `git init`).
-- Update the `.ruby-version` file based on the version of Ruby that you want to use.
-- Run `bundle install`
-  - Modern installations of ruby come with the `bundler` gem, so this should work as long as you're running `bundle install` in this project's top level directory.
-- To try out the base project and make sure it works, run: `ruby ./main.rb`
-  - It should print out `Hello!` and `Hello again!`
-- To run rspec tests, run: `bundle exec rspec`
-  - The tests should pass.
+2. Run `bundle install`
 
-# Development notes
+3. Run `docker compose build && docker compose up` to start the Docker compose process, which will start Solr.  This process will build a Docker image based on the latest conigurations specified in the docker-compose.yml file, and will then run the Docker compose process in the foreground.  You'll want to use a different terminal for the steps that follow.
 
-You can add new classes and modules in the `lib` directory and they'll be auto-loaded and available for use in your `main.js` script thanks to Zeitwerk.  In order for this to work, you'll need to name files according to Zeitwerk rules (https://github.com/fxn/zeitwerk).  Here's a quick summary
+4. Execute the main script: `ruby ./main.rb`
 
-```
-lib/animal.rb                        -> Animal
-lib/animals/dog.rb                   -> Animals::Dog
-lib/animals/dogs/beagle.rb           -> Animals::Dogs::Beagle
-lib/animals/dogs/golden_retriever.rb -> Animals::Dogs::GoldenRetriever
-```
+5. When you're done, go to the terminal window where docker is running, and hit ctrl+c to stop the process.  Then run `docker compose down` to clean up the Solr container.
